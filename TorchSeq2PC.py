@@ -1,5 +1,7 @@
-## This is the contents of TorchPC.py
+
 import torch 
+
+print('Running TorchSeq2PC.py')
 
 #NEWER
 
