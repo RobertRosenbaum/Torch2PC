@@ -153,17 +153,16 @@ def SetPCGrads(model,epsilon,X,vhat=None):
 
 # Perform a predictive coding step
 # vhat,Loss,dLdy,v,epsilon=OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=1,n=len(model),vinit=vhat)
-def OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=1,n=None,vinit=None):
+def OnePCStep(model,LossFun,X,Y,eta=1,n=None,vinit=None,PCErrType="Modified"):
+
+  # Fwd pass (plus return vhat and dLdy)
+  vhat,Loss,dLdy=FwdPassPlus(model,LossFun,X,Y)
   
   if n==None:
     n=len(model)
 
   if vinit==None:
     vinit=vhat
-
-
-  # Fwd pass (plus return vhat and dLdy)
-  vhat,Loss,dLdy=FwdPassPlus(model,LossFun,X,Y)
 
   # Get beliefs and prediction errors
   if PCErrType=="Modified":
