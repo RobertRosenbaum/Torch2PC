@@ -162,9 +162,9 @@ def OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=.1,n=20,vinit=None):
   if PCErrType=="Modified":
     v,epsilon=ModifiedPCPredErrs(model,vhat,dLdy,eta,n)
   elif PCErrType=="Strict":
-    if vinit==None:
-      vinit=vhat
-    v,epsilon=StrictPCPredErrs(model,vinit,LossFun,Y,eta,n)
+#    if vinit==None:
+#      vinit=vhat
+    v,epsilon=StrictPCPredErrs(model,vhat,LossFun,Y,eta,n)
   elif PCErrType=="Exact":
     v,epsilon=ExactPredErrs(model,LossFun,X,Y)
 
