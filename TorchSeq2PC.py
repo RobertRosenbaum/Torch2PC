@@ -152,7 +152,7 @@ def SetPCGrads(model,epsilon,X,vhat=None):
 
 
 # Do a whole PC step
-# vhat,Loss,dLdy,v,epsilon=OnePCStep(model,LossFun,X,Y,eta=1,n=None,PCErrTypee="Modified")
+# vhat,Loss,dLdy,v,epsilon=OnePCStep(model,LossFun,X,Y,eta=1,n=None,PCErrType="Modified")
 def OnePCStep(model,LossFun,X,Y,eta=1,n=None,PCErrType="Modified"):
   
   if n==None:
