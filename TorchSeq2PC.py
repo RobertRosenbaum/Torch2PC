@@ -152,7 +152,7 @@ def SetPCGrads(model,epsilon,X,vhat=None):
 
 
 # Do a whole PC step
-# vhat,Loss,dLdy,v,epsilon=OnePCStep(model,LossFun,X,Y,eta=.1,n=20,PCErrType="Modified")
+# vhat,Loss,dLdy,v,epsilon=OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=.1,n=20,vinit=None)
 def OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=.1,n=20,vinit=None):
   
   # Fwd pass (plus return vhat and dLdy)
@@ -162,8 +162,8 @@ def OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=.1,n=20,vinit=None):
   if PCErrType=="Modified":
     v,epsilon=ModifiedPCPredErrs(model,vhat,dLdy,eta,n)
   elif PCErrType=="Strict":
-#    if vinit==None:
-#      vinit=vhat
+    if vinit==None:
+      vinit=vhat
     v,epsilon=StrictPCPredErrs(model,vhat,LossFun,Y,eta,n)
   elif PCErrType=="Exact":
     v,epsilon=ExactPredErrs(model,LossFun,X,Y)
