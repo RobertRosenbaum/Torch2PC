@@ -156,7 +156,7 @@ def SetPCGrads(model,epsilon,X,vhat=None):
 # Returns activations (vhat), loss, gradient of the loss wrt output (dLdy), 
 # beliefs (v), and prediction errors (epsilon)
 # vhat,Loss,dLdy,v,epsilon=PCInfer(model,LossFun,X,Y,ErrType="FixedPred",eta=.1,n=20,vinit=None)
-def PCInfer(model,LossFun,X,Y,ErrType,eta,n,vinit=None):
+def PCInfer(model,LossFun,X,Y,ErrType,eta=.1,n=20,vinit=None):
   
   # Fwd pass (plus return vhat and dLdy)
   vhat,Loss,dLdy=FwdPassPlus(model,LossFun,X,Y)
