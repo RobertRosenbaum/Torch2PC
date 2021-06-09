@@ -170,7 +170,7 @@ def PCInfer(model,LossFun,X,Y,ErrType,eta,n,vinit=None):
     v,epsilon=StrictPCPredErrs(model,vhat,LossFun,Y,eta,n)
   elif ErrType=="Exact":
     v,epsilon=ExactPredErrs(model,LossFun,X,Y)
-  elif:
+  else:
     raise ValueError('ErrType must be \"FixedPred\", \"Strict\", or \"Exact\"')
 
   # Set gradients in model
