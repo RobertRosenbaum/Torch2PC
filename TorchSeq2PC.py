@@ -30,12 +30,12 @@ def FwdPassPlus(model,LossFun,X,Y):
 
 
 
-# Compute prediction errors (epsilon) using 
-# predictive coding algorithm modified by
+# Compute prediction errors (epsilon) and beliefs (v)
+# using predictive coding algorithm modified by
 # the fixed prediction assumption
-# see Millidge et al. 
-# v,epsilon=ModifiedPCPredErrs(model,vhat,dLdy,eta=1,n=None)
-def ModifiedPCPredErrs(model,vhat,dLdy,eta=1,n=None):
+# see: Millidge, Tschantz, and Buckley. Predictive coding approximates backprop along arbitrary computation graphs.
+# v,epsilon=FixedPredPCPredErrs(model,vhat,dLdy,eta=1,n=None)
+def FixedPredPCPredErrs(model,vhat,dLdy,eta=1,n=None):
 
     # Number of layers, counting the input as layer 0 
     DepthPlusOne=len(model)+1 
@@ -66,8 +66,8 @@ def ModifiedPCPredErrs(model,vhat,dLdy,eta=1,n=None):
 
 
 
-# Compute prediction errors (epsilon) using 
-# a strict interpretation of predictive coding
+# Compute prediction errors (epsilon) and beliefs (v)
+# using a strict interpretation of predictive coding
 # without the fixed prediction assumption.
 # v,epsilon=StrictPCPredErrs(model,vinit,LossFun,Y,eta,n)
 def StrictPCPredErrs(model,vinit,LossFun,Y,eta,n):
@@ -101,9 +101,10 @@ def StrictPCPredErrs(model,vinit,LossFun,Y,eta,n):
     return v,epsilon
 
 
-# Compute exact prediction errors (epsilon)
-# define as the gradient of the loss wrt to
-# the activations
+# Compute exact prediction errors (epsilon) and beliefs (v)
+# epsilon is defined as the gradient of the loss wrt to
+# the activations and v=vhat-epsilon where vhat are the
+# activations from a forward pass.
 # v,epsilon=ExactPredErrs(model,LossFun,X,Y,vhat=None)
 def ExactPredErrs(model,LossFun,X,Y,vhat=None):
 
@@ -151,22 +152,26 @@ def SetPCGrads(model,epsilon,X,vhat=None):
         p.grad = dtheta
 
 
-# Do a whole PC step
-# vhat,Loss,dLdy,v,epsilon=OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=.1,n=20,vinit=None)
-def OnePCStep(model,LossFun,X,Y,PCErrType="Modified",eta=.1,n=20,vinit=None):
+# Perform a whole PC inference step
+# Returns activations (vhat), loss, gradient of the loss wrt output (dLdy), 
+# beliefs (v), and prediction errors (epsilon)
+# vhat,Loss,dLdy,v,epsilon=PCInfer(model,LossFun,X,Y,ErrType="FixedPred",eta=.1,n=20,vinit=None)
+def PCInfer(model,LossFun,X,Y,ErrType,eta,n,vinit=None):
   
   # Fwd pass (plus return vhat and dLdy)
   vhat,Loss,dLdy=FwdPassPlus(model,LossFun,X,Y)
 
   # Get beliefs and prediction errors
-  if PCErrType=="Modified":
-    v,epsilon=ModifiedPCPredErrs(model,vhat,dLdy,eta,n)
-  elif PCErrType=="Strict":
+  if ErrType=="FixedPred":
+    v,epsilon=FixedPredPCPredErrs(model,vhat,dLdy,eta,n)
+  elif ErrType=="Strict":
     if vinit==None:
       vinit=vhat
     v,epsilon=StrictPCPredErrs(model,vhat,LossFun,Y,eta,n)
-  elif PCErrType=="Exact":
+  elif ErrType=="Exact":
     v,epsilon=ExactPredErrs(model,LossFun,X,Y)
+  elif:
+    raise ValueError('ErrType must be \"FixedPred\", \"Strict\", or \"Exact\"')
 
   # Set gradients in model
   SetPCGrads(model,epsilon,X,vhat)
