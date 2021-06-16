@@ -97,7 +97,12 @@ def StrictPCPredErrs(model,vinit,LossFun,Y,eta,n):
         _,epsdfdv=torch.autograd.functional.vjp(model[layer],v[layer],epsilon[layer+1])               
         dv=-epsilon[layer]+epsdfdv
         v[layer]=v[layer]+eta*dv
-
+      ###  
+      with torch.no_grad():
+        for layer in range(1,DepthPlusOne-1):
+          v[layer]=v[layer].clone()
+          epsilon[layer]=epsilon[layer].clone()
+        
     return v,epsilon
 
 
