@@ -36,7 +36,7 @@ in which variations of these algorithms were first derived and proposed.
 vhat,Loss,dLdy,v,epsilon=PCInfer(model,LossFun,X,Y,ErrType,eta=.1,n=20,vinit=None)
 ```
 
-## Inputs to PCInfer: 
+## Inputs to `PCInfer`: 
 
 ###  `model` 
 
@@ -87,7 +87,7 @@ which has just 2 layers.
 
 `vinit` is the initial value of the beliefs, which is only used when `ErrType='Strict'` If no initial belief is passed in, then the default value is the result from a forward pass, `vinit=vhat` 
 
-## Outputs from PCInfer: 
+## Outputs from `PCInfer`: 
 
 ###  `vhat`
 
@@ -105,7 +105,7 @@ which has just 2 layers.
 
 In addition to computing its outputs, `PCInfer` modifies the `.grad` attributes of all parameters in `model` to the parameter update values computed by predictive coding. For `ErrType='Exact'`, the gradients are set to the gradient of the loss with respect to that parameter, i.e., the same values computed by calling `Loss.backward()` after a single forward pass. For other values of `ErrType`, refer to the paper for an explanation of how the parameter updates are computed.
 
-## Example use of PCInfer
+## Example use of `PCInfer`
 
 The following code block is equivalent to a standard forward and backward pass:
 ```
