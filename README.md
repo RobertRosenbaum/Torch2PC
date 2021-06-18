@@ -119,4 +119,4 @@ optimizer.step()
 ```
 and to use the fixed prediction assumption, simply replace `"Strict"` above with `"FixedPred"`.
 
-### A complete example of training a convolutional neural network on MNIST is provided in the file `SimpleExample.ipynb`
+### A complete example of training a convolutional neural network on MNIST is provided in the file `Example1.ipynb`
