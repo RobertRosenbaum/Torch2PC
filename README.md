@@ -5,7 +5,7 @@ If you use this code in a paper, please cite:
 
 "On the relationship between predictive coding and backpropagation" by Robert Rosenbaum
 
-which contains a full description of the algorithms here. Also cite: 
+which contains a full description of the algorithms here. You could also cite: 
 ```
 @article{millidge2020predictive,
   title={Predictive coding approximates backprop along arbitrary computation graphs},
@@ -24,6 +24,7 @@ which contains a full description of the algorithms here. Also cite:
   publisher={MIT Press}
 }
 ```
+in which variations of the algorithms in this code were first derived and proposed.
 
 This repository includes several functions for applying predictive coding algorithms to PyTorch models. Currently, there is only code for models built using the Sequential class, but forthcoming updates will apply to more general classes of models. 
 
