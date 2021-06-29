@@ -4,9 +4,14 @@ Software for using predictive coding algorithms to train PyTorch models.
 This repository includes several functions for applying predictive coding algorithms to PyTorch models. Currently, there is only code for models built using the Sequential class, but forthcoming updates will apply to more general classes of models. 
 
 If you use this code for a paper, please cite:
-
-"On the relationship between predictive coding and backpropagation" by Robert Rosenbaum
-
+```
+@article{rosenbaum2021relationship,
+      title={On the relationship between predictive coding and backpropagation}, 
+      author={Robert Rosenbaum},
+      year={2021},
+      journal={arXiv preprint arXiv:2106.13082}
+}
+```
 which contains a full description of the algorithms. You could also cite: 
 ```
 @article{millidge2020predictive,
