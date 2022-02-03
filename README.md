@@ -1,3 +1,5 @@
+** This is the version of the code used in the manuscript linked below. Updates to the code, including the addition of precision matrices, will be made in the forked version at NeuralDynamicsAndComputing/Torch2PC **
+
 # Torch2PC
 Software for using predictive coding algorithms to train PyTorch models.
 
