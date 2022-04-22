@@ -141,23 +141,23 @@ def ExactPredErrs(model,LossFun,X,Y,vhat=None):
 
     
 # Set gradients of model params based on PC approximations
-def SetPCGrads(model,epsilon,X,vhat=None):
+def SetPCGrads(model,epsilon,X,v=None):
     
     # Number of layers, counting the input as layer 0 
     DepthPlusOne=len(model)+1
 
-    # Forward pass if it wasn't passed in
-    if vhat==None:
-      vhat=[None]*DepthPlusOne
-      vhat[0]=X
+    # Forward pass if v wasn't passed in
+    if v==None:
+      v=[None]*DepthPlusOne
+      v[0]=X
       for layer in range(1,DepthPlusOne):
         f=model[layer-1]
-        vhat[layer]=f(vhat[layer-1])
+        v[layer]=f(v[layer-1])
 
     # Compute new parameter values    
     for layer in range(0,DepthPlusOne-1):
       for p in model[layer].parameters():
-        dtheta=torch.autograd.grad(vhat[layer+1],p,grad_outputs=epsilon[layer+1],allow_unused=True,retain_graph=True)[0]
+        dtheta=torch.autograd.grad(v[layer+1],p,grad_outputs=epsilon[layer+1],allow_unused=True,retain_graph=True)[0]
         p.grad = dtheta
 
 
@@ -173,12 +173,15 @@ def PCInfer(model,LossFun,X,Y,ErrType,eta=.1,n=20,vinit=None):
   # Get beliefs and prediction errors
   if ErrType=="FixedPred":
     v,epsilon=FixedPredPCPredErrs(model,vhat,dLdy,eta,n)
+    SetPCGrads(model,epsilon,X,vhat)
   elif ErrType=="Strict":
     if vinit==None:
       vinit=vhat
     v,epsilon=StrictPCPredErrs(model,vhat,LossFun,Y,eta,n)
+    SetPCGrads(model,epsilon,X,v)
   elif ErrType=="Exact":
     v,epsilon=ExactPredErrs(model,LossFun,X,Y)
+    SetPCGrads(model,epsilon,X,vhat)
   else:
     raise ValueError('ErrType must be \"FixedPred\", \"Strict\", or \"Exact\"')
 
