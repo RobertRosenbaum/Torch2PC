@@ -186,6 +186,6 @@ def PCInfer(model,LossFun,X,Y,ErrType,eta=.1,n=20,vinit=None):
     raise ValueError('ErrType must be \"FixedPred\", \"Strict\", or \"Exact\"')
 
   # Set gradients in model
-  SetPCGrads(model,epsilon,X,vhat)
+  #SetPCGrads(model,epsilon,X,vhat)
 
   return vhat,Loss,dLdy,v,epsilon
