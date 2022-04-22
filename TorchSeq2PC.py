@@ -178,7 +178,7 @@ def PCInfer(model,LossFun,X,Y,ErrType,eta=.1,n=20,vinit=None):
     if vinit==None:
       vinit=vhat
     v,epsilon=StrictPCPredErrs(model,vhat,LossFun,Y,eta,n)
-    SetPCGrads(model,epsilon,X,v)
+    SetPCGrads(model,epsilon,X,vhat)
   elif ErrType=="Exact":
     v,epsilon=ExactPredErrs(model,LossFun,X,Y)
     SetPCGrads(model,epsilon,X,vhat)
