@@ -83,11 +83,11 @@ def StrictPCPredErrs(model,vinit,LossFun,Y,eta,n):
       # Initialize epsilons
       epsilon=[None]*DepthPlusOne
 
-      # Initialize v to a copy of vinit with no gradients needed
-      # (can this be moved up to the loop above?)
-      v=[None]*DepthPlusOne
-      for layer in range(DepthPlusOne):
-        v[layer]=vinit[layer].clone()    
+    # Initialize v to a copy of vinit with no gradients needed
+    # (can this be moved up to the loop above?)
+    v=[None]*DepthPlusOne
+    for layer in range(DepthPlusOne):
+      v[layer]=vinit[layer].clone()    
 
     # Iterative updates of v and epsilon 
     for i in range(n):
