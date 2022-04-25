@@ -159,7 +159,7 @@ def SetPCGrads(model,epsilon,X,v=None):
       with torch.no_grad():
         vtemp0=v[layer].clone()
         vtemp0.requires_grad=True
-      vtemp1=modelPC[layer](vtemp0)
+      vtemp1=model[layer](vtemp0)
       for p in model[layer].parameters():
         dtheta=torch.autograd.grad(vtemp1,p,grad_outputs=epsilon[layer+1],allow_unused=True,retain_graph=True)[0]
         p.grad = dtheta      
