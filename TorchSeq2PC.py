@@ -156,9 +156,13 @@ def SetPCGrads(model,epsilon,X,v=None):
 
     # Compute new parameter values    
     for layer in range(0,DepthPlusOne-1):
+      with torch.no_grad():
+        vtemp0=v[layer].clone()
+        vtemp0.requires_grad=True
+      vtemp1=modelPC[layer](vtemp0)
       for p in model[layer].parameters():
-        dtheta=torch.autograd.grad(v[layer+1],p,grad_outputs=epsilon[layer+1],allow_unused=True,retain_graph=True)[0]
-        p.grad = dtheta
+        dtheta=torch.autograd.grad(vtemp1,p,grad_outputs=epsilon[layer+1],allow_unused=True,retain_graph=True)[0]
+        p.grad = dtheta      
 
 
 # Perform a whole PC inference step
@@ -178,7 +182,7 @@ def PCInfer(model,LossFun,X,Y,ErrType,eta=.1,n=20,vinit=None):
     if vinit==None:
       vinit=vhat
     v,epsilon=StrictPCPredErrs(model,vhat,LossFun,Y,eta,n)
-    SetPCGrads(model,epsilon,X,vhat)
+    SetPCGrads(model,epsilon,X,v)
   elif ErrType=="Exact":
     v,epsilon=ExactPredErrs(model,LossFun,X,Y)
     SetPCGrads(model,epsilon,X,vhat)
