@@ -35,6 +35,7 @@ which contains a full description of the algorithms. You could also cite:
 ```
 in which variations of these algorithms were first derived and proposed.
 
+The development of this software was funded in part by Air Force Office of Scientific Research (AFOSR) grant number FA9550-21-1-0223 as well as US National Science Foundation (NSF) grants NSF-DMS-1654268 and NSF NeuroNex DBI-1707400.
 
 # `PCInfer` is the main function
 
