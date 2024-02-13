@@ -4,6 +4,7 @@ Software for using predictive coding algorithms to train PyTorch models.
 
 This repository includes several functions for applying predictive coding algorithms to PyTorch models. Currently, there is only code for models built using the Sequential class, but forthcoming updates will apply to more general classes of models. 
 
+
 If you use this code for a paper, please cite:
 ```
 @article{rosenbaum2022relationship,
@@ -17,7 +18,18 @@ If you use this code for a paper, please cite:
   publisher={Public Library of Science}
 }
 ```
-which contains a full description of the algorithms. You should also cite: 
+which contains a full description of the algorithms. 
+
+Code to produce figures in that paper can be found at:
+
+[github repository](https://github.com/RobertRosenbaum/PredictiveCodingVsBackProp)
+
+and
+
+[Colab Folder](https://drive.google.com/drive/folders/1m_y0G_sTF-pV9pd2_sysWt1nvRvHYzX0?usp=sharing)
+
+
+You should also cite: 
 ```
 @article{millidge2020predictive,
   title={Predictive coding approximates backprop along arbitrary computation graphs},
