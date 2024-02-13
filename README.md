@@ -7,14 +7,18 @@ This repository includes several functions for applying predictive coding algori
 
 If you use this code for a paper, please cite:
 ```
-@article{rosenbaum2021relationship,
-      title={On the relationship between predictive coding and backpropagation}, 
-      author={Robert Rosenbaum},
-      year={2021},
-      journal={arXiv preprint arXiv:2106.13082}
+@article{rosenbaum2022relationship,
+  title={On the relationship between predictive coding and backpropagation},
+  author={Rosenbaum, Robert},
+  journal={Plos one},
+  volume={17},
+  number={3},
+  pages={e0266102},
+  year={2022},
+  publisher={Public Library of Science}
 }
 ```
-which contains a full description of the algorithms. You could also cite: 
+which contains a full description of the algorithms. You should also cite: 
 ```
 @article{millidge2020predictive,
   title={Predictive coding approximates backprop along arbitrary computation graphs},
