@@ -97,9 +97,9 @@ def StrictPCPredErrs(model,vinit,LossFun,Y,eta,n):
       Loss=LossFun(vtilde,Y)
       epsilon[layer]=torch.autograd.grad(Loss,vtilde,retain_graph=False)[0] # -2 ~ DepthPlusOne-2
       for layer in reversed(range(1,DepthPlusOne-1)):
-        epsilon[layer]=v[layer]-model[layer-1](v[layer-1])
+        epsilon[layer]=model[layer-1](v[layer-1])-v[layer]
         _,epsdfdv=torch.autograd.functional.vjp(model[layer],v[layer],epsilon[layer+1])               
-        dv=-epsilon[layer]+epsdfdv
+        dv=epsilon[layer]-epsdfdv
         v[layer]=v[layer]+eta*dv
       # This helps free up memory
       with torch.no_grad():
